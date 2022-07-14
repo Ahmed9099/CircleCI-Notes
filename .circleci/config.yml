@@ -16,6 +16,13 @@ jobs:
       - checkout
       - run: "echo world"
 
+  print_name:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: echo ${NAME}
+
   say-hello:
     
     docker:
@@ -33,5 +40,4 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - print_hello
-      - print_world
+      - print_name
