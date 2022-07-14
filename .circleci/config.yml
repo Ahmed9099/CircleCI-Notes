@@ -3,9 +3,10 @@ version: 2.1
 commands:
   print_pipeline_id:
     description: "Print Pipeline ID"
-    when : on_fail
-    steps:
-      - run: echo $CIRCLE_WORKFLOW_ID
+    steps: 
+      - run: 
+          when : on_fail
+          command: echo $CIRCLE_WORKFLOW_ID
 
 jobs:
   print_hello:
