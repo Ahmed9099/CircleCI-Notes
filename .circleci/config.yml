@@ -3,6 +3,7 @@ version: 2.1
 commands:
   print_pipeline_id:
     description: "Print Pipeline ID"
+    when : on_fail
     steps:
       - run: echo $CIRCLE_WORKFLOW_ID
 
@@ -12,8 +13,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: "echo Hello"
-      - print_pipeline_id
+      - run: return 1
+      - print_pipeline_id 
 
   print_world:
     docker:
@@ -28,6 +29,7 @@ jobs:
     steps:
       - checkout
       - run: echo ${NAME}
+
 
   save_hello_output:
     docker:
