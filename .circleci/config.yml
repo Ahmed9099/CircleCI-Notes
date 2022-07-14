@@ -23,6 +23,25 @@ jobs:
       - checkout
       - run: echo ${NAME}
 
+    save_hello_output:
+      docker:
+        - image: circleci/node:13.8.0
+      steps:
+        - checkout
+        - run: echo hello > output.txt
+        - save_cache:
+          key: ahmedfathy
+          paths:
+            - ~/output.txt
+    
+    restore_hello_output:
+      docker:
+        - image: circleci/node:13.8.0
+      steps:
+        - checkout
+        - restore_cache:
+          key: ahmedfathy
+        - run: cat output.txt
   say-hello:
     
     docker:
@@ -40,4 +59,5 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - print_name
+      - save_hello_output
+      - restore_hello_output
