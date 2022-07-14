@@ -1,5 +1,10 @@
 version: 2.1
 
+command:
+  print_pipeline_id:
+    description: "Print Pipeline ID"
+    steps:
+      - run: echo $CIRCLE_WORKFLOW_ID
 
 jobs:
   print_hello:
@@ -8,6 +13,7 @@ jobs:
     steps:
       - checkout
       - run: "echo Hello"
+      - print_pipeline_id
 
   print_world:
     docker:
@@ -59,5 +65,4 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - save_hello_output
-      - restore_hello_output
+      - print_hello
